@@ -40,7 +40,9 @@ function SelectTopic({ onUserSelect }) {
         </SelectTrigger>
         <SelectContent>
           {options.map((item, index) => (
-            <SelectItem value={item}>{item}</SelectItem>
+            <SelectItem key={item} value={item}>
+              {item}
+            </SelectItem>
           ))}
         </SelectContent>
       </Select>

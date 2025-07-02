@@ -52,6 +52,7 @@ function SelectStyle({ onUserSelect }) {
                 src={item.image}
                 alt={item.alt}
                 fill
+                sizes="(max-width: 768px) 100vw, 50vw"
                 className="object-cover rounded-lg"
                 onClick={() => {
                   setSelectedOption(item.name);
