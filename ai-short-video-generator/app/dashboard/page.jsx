@@ -1,7 +1,7 @@
 "use client";
 
 import { Button } from "@/components/ui/button";
-import React, { useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import EmptyState from "./_components/EmptyState";
 import Link from "next/link";
 import VideoList from "./create-new/_components/VideoList";
@@ -18,6 +18,7 @@ function Dashboard() {
   useEffect(() => {
     user && GetVideoList();
   }, [user]);
+
   //------------------showing videos on the Dashboard----------------
   // Used to get Users Video
 

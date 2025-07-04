@@ -13,6 +13,10 @@ import { VideoData } from "@/configs/schema";
 import { useUser } from "@clerk/nextjs";
 import { db } from "@/configs/db";
 import PlayerDialog from "../_components/PlayerDialog";
+import { UserDetailContext } from "@/app/_context/UserDetailContext";
+import { toast } from "sonner";
+import { eq } from "drizzle-orm";
+import { Users } from "lucide-react";
 
 const scriptData = "a knight in a shining armor"; //-> for testing
 const FILE_URL =
@@ -35,8 +39,9 @@ function CreateNew() {
   const [imageList, setImageList] = useState();
 
   const { videoData, setVideoData } = useContext(VideoDataContext);
-  const [playVideo, setPlayVideo] = useState(true);
-  const [videoId, setVideoId] = useState(13);
+  const [playVideo, setPlayVideo] = useState(false);
+  const [videoId, setVideoId] = useState();
+  const { userDetail, setUserDetail } = useContext(UserDetailContext);
 
   const { user } = useUser(); //<---- A Hook from the clerk to get the user Email
 
@@ -52,6 +57,10 @@ function CreateNew() {
   };
 
   const onCreateClickHandler = () => {
+    if (userDetail?.credits >= 0) {
+      toast("You dont have enough Credits 🪙");
+      return;
+    }
     getVideoScript();
     // GenerateAudioFile();
     // GenerateAudioCaption();
@@ -267,6 +276,8 @@ function CreateNew() {
         })
         .returning({ id: VideoData?.id });
 
+      await UpdateUserCredits();
+
       const newId = result[0]?.id;
       console.log("Saved video ID before:", result[0]);
 
@@ -280,6 +291,24 @@ function CreateNew() {
     } finally {
       setLoading(false);
     }
+  };
+
+  //-------------- Updating Credits------------------------------------------
+
+  const UpdateUserCredits = async () => {
+    const result = await db
+      .update(Users)
+      .set({
+        credits: userDetail?.credits - 10,
+      })
+      .where(eq(Users?.email, user?.primaryEmailAddress?.emailAddress));
+    console.log(result);
+    setUserDetail((prev) => ({
+      ...prev,
+      credits: userDetail?.credits - 10,
+    }));
+
+    setVideoData(null);
   };
 
   //-------------- Components------------------------------------------

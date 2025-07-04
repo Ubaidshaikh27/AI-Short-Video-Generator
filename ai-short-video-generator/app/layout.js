@@ -1,3 +1,4 @@
+import { Toaster } from "sonner";
 import "./globals.css";
 import Provider from "./provider";
 import { ClerkProvider } from "@clerk/nextjs";
@@ -15,6 +16,7 @@ export default function RootLayout({ children }) {
       <html lang="en">
         <body className={outfit.className}>
           <Provider>{children}</Provider>
+          <Toaster />
         </body>
       </html>
     </ClerkProvider>
