@@ -56,6 +56,7 @@ function PlayerDialog({ playVideo, videoId }) {
           <DialogDescription></DialogDescription>
 
           <div>
+            {/* Videoplayer */}
             <Player
               component={RemotionVideo}
               durationInFrames={Number(durationInFrame.toFixed(0))}
