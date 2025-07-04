@@ -12,6 +12,7 @@ import { VideoDataContext } from "@/app/_context/VideoDataContext";
 import { VideoData } from "@/configs/schema";
 import { useUser } from "@clerk/nextjs";
 import { db } from "@/configs/db";
+import PlayerDialog from "../_components/PlayerDialog";
 
 const scriptData = "a knight in a shining armor"; //-> for testing
 const FILE_URL =
@@ -34,6 +35,8 @@ function CreateNew() {
   const [imageList, setImageList] = useState();
 
   const { videoData, setVideoData } = useContext(VideoDataContext);
+  const [playVideo, setPlayVideo] = useState(true);
+  const [videoId, setVideoId] = useState(13);
 
   const { user } = useUser(); //<---- A Hook from the clerk to get the user Email
 
@@ -67,7 +70,7 @@ function CreateNew() {
       formData.topic +
       " along with AI image prompt with " +
       formData.imageStyle +
-      " format for each scene and give me results in JSON format and imageprompt and contenttext as a field, do not wrap it in an object, make sure it is an array and give only 1 result with 1 imagePrompt and 1 contentText and contentText should me max 80 characters";
+      " format for each scene and give me results in JSON format and imageprompt and contenttext as a field, do not wrap it in an object, make sure it is an array and give only 1 result with 2 imagePrompt and 1 contentText and contentText should me max 80 characters";
     // " format for each scene and give me results in JSON format and imageprompt and contenttext as a field, do not wrap it in an object, make sure it is an array and make sure there are only 3 results if 30 seconds video, 2 results if 15 second video, and 4 results if 60 second video and in contentText the characters should max 80";
 
     console.log(prompt);
@@ -148,13 +151,14 @@ function CreateNew() {
     setCaptions(res?.data?.result);
     console.log(res?.data?.result);
 
-    res?.data?.result && (await GenerateImage(videoScriptData));
+    res?.data?.result &&
+      (await GenerateImage(videoScriptData, fileUrl, res.data.result));
 
     setLoading(false);
   };
   //-------------- Generate Image------------------------------------------
 
-  const GenerateImage = async (videoScriptData) => {
+  const GenerateImage = async (videoScriptData, audioFile, captionData) => {
     setLoading(true);
     let images = [];
     try {
@@ -192,16 +196,18 @@ function CreateNew() {
       // }));
       const cleanedImages = responses.filter((img) => !!img);
       const finalData = {
-        videoScript: videoScript,
-        audioFileUrl: audioFileUrl,
-        captions: captions,
+        videoScript: videoScriptData,
+        audioFileUrl: audioFile,
+        captions: captionData,
         imageList: cleanedImages,
       };
       setVideoData(finalData);
 
       // console.log(responses, videoScript, audioFileUrl, captions);
 
-      setImageList(responses);
+      setImageList(cleanedImages);
+
+      await SaveVideoData(finalData); // ✅ saves immediately after everything is ready
     } catch (error) {
       console.error("❌ Unexpected error during batch generation:", error);
       // setImageList(new Array(VIDEOSCRIPT.length).fill(null));
@@ -218,30 +224,35 @@ function CreateNew() {
   //   }
   // }, [videoData]);
 
-  useEffect(() => {
-    const isValid =
-      videoData && //<<-----	                            Makes sure videoData is not null or undefined
-      Array.isArray(videoData.videoScript) && //<<---     Checks if videoScript is a valid array
-      videoData.videoScript.length > 0 && //<-----        Makes sure the array has content
-      typeof videoData.audioFileUrl === "string" && //<-  Ensures it's a string URL
-      videoData.audioFileUrl !== "" && //<<----           Makes sure the URL is not empty
-      Array.isArray(videoData.captions) && //<<---        Confirms captions is an array
-      videoData.captions.length > 0 && //<<--             Captions array has at least 1 item
-      Array.isArray(videoData.imageList) && //<<--        Checks imageList is an array
-      videoData.imageList.length > 0; //<<--             	Image list must have data
+  // useEffect(() => {
+  //   const isValid =
+  //     videoData && //<<-----	                            Makes sure videoData is not null or undefined
+  //     Array.isArray(videoData.videoScript) && //<<---     Checks if videoScript is a valid array
+  //     videoData.videoScript.length > 0 && //<-----        Makes sure the array has content
+  //     typeof videoData.audioFileUrl === "string" && //<-  Ensures it's a string URL
+  //     videoData.audioFileUrl !== "" && //<<----           Makes sure the URL is not empty
+  //     Array.isArray(videoData.captions) && //<<---        Confirms captions is an array
+  //     videoData.captions.length > 0 && //<<--             Captions array has at least 1 item
+  //     Array.isArray(videoData.imageList) && //<<--        Checks imageList is an array
+  //     videoData.imageList.length > 0; //<<--             	Image list must have data
 
-    if (isValid) {
-      //<<<<----------- If All Are Valid
-      const saveData = async () => {
-        // Wraped it under savedDate because Because useEffect cannot directly handle await, so we define an inner async function and call it.
-        setLoading(true); // show loading
-        await SaveVideoData(videoData);
-        setLoading(false); // hide loading
-      };
+  //   if (isValid) {
+  //     //<<<<----------- If All Are Valid
+  //     const saveData = async () => {
+  //       // Wraped it under savedDate because Because useEffect cannot directly handle await, so we define an inner async function and call it.
+  //       setLoading(true); // show loading
+  //       await SaveVideoData(videoData);
+  //       setLoading(false); // hide loading
+  //     };
 
-      saveData();
-    }
-  }, [videoData]); //<<---------                         This code runs every time the videoData state changes.
+  //     saveData();
+  //   }
+
+  // if (!isValid) {
+  //   console.warn("Invalid data. Skipping save.");
+  //   return;
+  // }
+  // }, [videoData]); //<<---------                         This code runs every time the videoData state changes.
 
   const SaveVideoData = async (videoData) => {
     try {
@@ -255,6 +266,13 @@ function CreateNew() {
           createdBy: user?.primaryEmailAddress?.emailAddress,
         })
         .returning({ id: VideoData?.id });
+
+      const newId = result[0]?.id;
+      console.log("Saved video ID before:", result[0]);
+
+      setVideoId(newId);
+      console.log("Saved video ID after:", newId);
+      setPlayVideo(true);
 
       console.log("📥 Saved to DB:", result);
     } catch (err) {
@@ -290,6 +308,7 @@ function CreateNew() {
       </div>
 
       <CustomLoading loading={loading} />
+      <PlayerDialog playVideo={playVideo} videoId={videoId} />
     </div>
   );
 }
