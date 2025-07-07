@@ -86,8 +86,8 @@ function CreateNew() {
       formData.topic +
       " along with AI image prompt with " +
       formData.imageStyle +
-      " format for each scene and give me results in JSON format and imageprompt and contenttext as a field, do not wrap it in an object, make sure it is an array and give only 1 result with 2 imagePrompt and 1 contentText and contentText should me max 80 characters";
-    // " format for each scene and give me results in JSON format and imageprompt and contenttext as a field, do not wrap it in an object, make sure it is an array and make sure there are only 3 results if 30 seconds video, 2 results if 15 second video, and 4 results if 60 second video and in contentText the characters should max 80";
+      " format for each scene and give me results in JSON format and imageprompt and contenttext as a field, do not wrap it in an object, make sure it is an array and make sure there are only 3 results if 30 seconds video, 2 results if 15 second video, and 4 results if 60 second video and in contentText the characters should max 80";
+    // " format for each scene and give me results in JSON format and imageprompt and contenttext as a field, do not wrap it in an object, make sure it is an array and give only 1 result with 2 imagePrompt and 1 contentText and contentText should me max 80 characters";  <--- this one is for testing
 
     console.log(prompt);
 
