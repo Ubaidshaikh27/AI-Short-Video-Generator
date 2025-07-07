@@ -1,36 +1,88 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+# 🎬 AI Short Video Generator
 
-## Getting Started
+This is a full-stack AI-powered short video generation platform built with:
 
-First, run the development server:
+- **Node.js**
+- **React + Next.js (App Router)**
+- **Drizzle ORM + Neon (PostgreSQL)**
+- **Firebase (Storage)**
+- **Remotion (Video rendering)**
+- **AssemblyAI (Captions/Subtitles)**
+- **Replicate + Gemini AI (Prompt-based video generation)**
+
+---
+
+## 🚀 Features
+
+- 🎯 Choose a topic, image style, and video duration
+- 🧠 Generate video scripts using **Gemini AI**
+- 🗣️ AI voiceover via **AssemblyAI**
+- 📸 Create illustrations using **Replicate (Stable Diffusion)**
+- 📝 Auto-generate captions with timestamps
+- 🎞️ Render full videos using **Remotion**
+- 💾 Store metadata (script, captions, images) in **PostgreSQL**
+- 🔐 Authenticated user flow with **Clerk**
+- ☁️ Media storage (audio/video) via **Firebase**
+
+---
+
+## 🖥️ Tech Stack
+
+| Technology   | Role / Purpose                      |
+| ------------ | ----------------------------------- |
+| Next.js      | Frontend framework (App Router)     |
+| React        | Component-based UI development      |
+| Drizzle ORM  | Type-safe queries & schema builder  |
+| Neon         | Serverless PostgreSQL database      |
+| Firebase     | Storage for audio and media files   |
+| Gemini AI    | Script and prompt generation        |
+| Replicate AI | Image generation (Stable Diffusion) |
+| AssemblyAI   | Voice-to-text & captions            |
+| Remotion     | Video rendering engine              |
+| Clerk        | Authentication & user management    |
+
+---
+
+## ⚠️ Disclaimer
+
+### 📄 Account & Upgrade Pages
+
+> The **Account** and **Upgrade** pages are currently **frontend-only** and intended for design/demo purposes only.  
+> They do **not** include any backend or dynamic features such as:
+>
+> - Profile editing or data persistence
+> - Subscription plans or payment logic
+> - Billing or account management
+>
+> These pages serve only as static UI representations.
+
+---
+
+## 📸 Screenshots
+
+### Dashboard
+
+![Dashboard](./public/screenshots/dashboard-page.png)
+
+### Create Video Page
+
+![Create Video](./public/screenshots/create-new-page.png)
+
+### Upgrade Page
+
+![Upgrade Page](./public/screenshots/upgrade-page.png)
+
+### Account Page
+
+![Account Page](./public/screenshots/accounts-page.png).
+
+---
+
+## 🛠️ Getting Started
+
+### 1. Clone the repository
 
 ```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+git clone https://github.com/your-username/ai-video-generator.git
+cd ai-video-generator
 ```
-
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
-
-You can start editing the page by modifying `app/page.js`. The page auto-updates as you edit the file.
-
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
-
-## Learn More
-
-To learn more about Next.js, take a look at the following resources:
-
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
