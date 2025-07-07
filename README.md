@@ -61,16 +61,18 @@ This is a full-stack AI-powered short video generation platform built with:
 ## 📸 Screenshots
 
 ### Dashboard  
-![Dashboard](./public/dashboard-page.png)
+![Dashboard](./public/screenshots/dashboard-page.png)
 
 ### Create Video Page  
-![Create Video](./public/create-new-page.png)
+![Create Video](./public/screenshots/create-new-page.png)
 
 ### Upgrade Page  
-![Upgrade Page](./public/upgrade-page.png)
+![Upgrade Page](./public/screenshots/upgrade-page.png)
 
 ### Account Page  
-![Account Page](./public/accounts-page.png).
+![Account Page](./public/screenshots/accounts-page.png).
+
+
 ---
 
 ## 🛠️ Getting Started
