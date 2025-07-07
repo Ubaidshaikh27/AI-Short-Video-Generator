@@ -45,6 +45,13 @@ function CreateNew() {
 
   const { user } = useUser(); //<---- A Hook from the clerk to get the user Email
 
+  useEffect(() => {
+    // ✅ Reset state on component mount (initial page load)
+    setPlayVideo(false);
+    setVideoId(undefined);
+    setVideoData(null);
+  }, []);
+
   //-------------- functions------------------------------------------
 
   const onHandleInputChange = (fieldname, fieldValue) => {
@@ -337,7 +344,14 @@ function CreateNew() {
       </div>
 
       <CustomLoading loading={loading} />
-      <PlayerDialog playVideo={playVideo} videoId={videoId} />
+      {/* <PlayerDialog playVideo={playVideo} videoId={videoId} /> */}
+      {playVideo && videoId && (
+        <PlayerDialog
+          playVideo={true}
+          videoId={videoId}
+          onClose={() => setPlayVideo(false)}
+        /> //This ensures PlayerDialog is only mounted (and thus auto-opens) after a video is created, preventing premature openings.
+      )}
     </div>
   );
 }

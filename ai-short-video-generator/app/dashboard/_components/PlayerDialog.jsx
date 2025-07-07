@@ -16,14 +16,16 @@ import { VideoData } from "@/configs/schema";
 import { eq } from "drizzle-orm";
 import { useRouter } from "next/navigation";
 
-function PlayerDialog({ playVideo, videoId }) {
+function PlayerDialog({ playVideo, videoId, onClose }) {
   const [openDialog, setOpenDialog] = useState(false);
   const [videoData, setVideoData] = useState();
   const [durationInFrame, setDurationInFrame] = useState(100);
   const router = useRouter();
 
   useEffect(() => {
-    setOpenDialog(!openDialog);
+    // setOpenDialog(!openDialog); <--- this was giving issue of dialog opeing automaticalyy
+    setOpenDialog(true);
+
     videoId && GetVideoData();
   }, [playVideo]);
 
@@ -47,7 +49,14 @@ function PlayerDialog({ playVideo, videoId }) {
   };
 
   return (
-    <Dialog open={openDialog}>
+    // <Dialog open={openDialog}>
+    <Dialog
+      open={openDialog}
+      onOpenChange={(isOpen) => {
+        setOpenDialog(isOpen);
+        if (!isOpen) onClose?.(); // ✅ Ensures parent is notified when modal closes
+      }}
+    >
       <DialogContent className="flex flex-col items-center">
         <DialogHeader>
           <DialogTitle className="text-3xl font-bold my-5">
@@ -76,6 +85,7 @@ function PlayerDialog({ playVideo, videoId }) {
                 onClick={() => {
                   router.replace("/dashboard");
                   setOpenDialog(false);
+                  onClose?.(); // ✅ tell parent to stop rendering PlayerDialog
                 }}
               >
                 Cancel
