@@ -62,19 +62,19 @@ This is a full-stack AI-powered short video generation platform built with:
 
 ### Dashboard
 
-![Dashboard](./public/screenshots/dashboard-page.png)
+![Dashboard](https://github.com/Ubaidshaikh27/AI-Short-Video-Generator/blob/main/ai-short-video-generator/public/screenshots/accounts-page.png)
 
 ### Create Video Page
 
-![Create Video](./public/screenshots/create-new-page.png)
+![Create Video](https://github.com/Ubaidshaikh27/AI-Short-Video-Generator/blob/main/ai-short-video-generator/public/screenshots/create-new-page.png)
 
 ### Upgrade Page
 
-![Upgrade Page](./public/screenshots/upgrade-page.png)
+![Upgrade Page](https://github.com/Ubaidshaikh27/AI-Short-Video-Generator/blob/main/ai-short-video-generator/public/screenshots/upgrade-page.png)
 
 ### Account Page
 
-![Account Page](./public/screenshots/accounts-page.png).
+![Account Page](https://github.com/Ubaidshaikh27/AI-Short-Video-Generator/blob/main/ai-short-video-generator/public/screenshots/accounts-page.png).
 
 ---
 
