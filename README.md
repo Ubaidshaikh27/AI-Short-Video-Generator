@@ -28,18 +28,18 @@ This is a full-stack AI-powered short video generation platform built with:
 
 ## 🖥️ Tech Stack
 
-| Technology     | Role / Purpose                     |
-|----------------|------------------------------------|
-| Next.js        | Frontend framework (App Router)    |
-| React          | Component-based UI development     |
-| Drizzle ORM    | Type-safe queries & schema builder |
-| Neon           | Serverless PostgreSQL database     |
-| Firebase       | Storage for audio and media files  |
-| Gemini AI      | Script and prompt generation       |
-| Replicate AI   | Image generation (Stable Diffusion)|
-| AssemblyAI     | Voice-to-text & captions           |
-| Remotion       | Video rendering engine             |
-| Clerk          | Authentication & user management   |
+| Technology   | Role / Purpose                      |
+| ------------ | ----------------------------------- |
+| Next.js      | Frontend framework (App Router)     |
+| React        | Component-based UI development      |
+| Drizzle ORM  | Type-safe queries & schema builder  |
+| Neon         | Serverless PostgreSQL database      |
+| Firebase     | Storage for audio and media files   |
+| Gemini AI    | Script and prompt generation        |
+| Replicate AI | Image generation (Stable Diffusion) |
+| AssemblyAI   | Voice-to-text & captions            |
+| Remotion     | Video rendering engine              |
+| Clerk        | Authentication & user management    |
 
 ---
 
@@ -50,9 +50,9 @@ This is a full-stack AI-powered short video generation platform built with:
 > The **Account** and **Upgrade** pages are currently **frontend-only** and intended for design/demo purposes only.  
 > They do **not** include any backend or dynamic features such as:
 >
-> - Profile editing or data persistence  
-> - Subscription plans or payment logic  
-> - Billing or account management  
+> - Profile editing or data persistence
+> - Subscription plans or payment logic
+> - Billing or account management
 >
 > These pages serve only as static UI representations.
 
@@ -60,18 +60,21 @@ This is a full-stack AI-powered short video generation platform built with:
 
 ## 📸 Screenshots
 
-### Dashboard  
-![Dashboard](./public/screenshots/dashboard-page.png)
+### Dashboard
 
-### Create Video Page  
-![Create Video](./public/screenshots/create-new-page.png)
+![Dashboard](https://github.com/Ubaidshaikh27/AI-Short-Video-Generator/blob/main/ai-short-video-generator/public/screenshots/accounts-page.png)
 
-### Upgrade Page  
-![Upgrade Page](./public/screenshots/upgrade-page.png)
+### Create Video Page
 
-### Account Page  
-![Account Page](./public/screenshots/accounts-page.png).
+![Create Video](https://github.com/Ubaidshaikh27/AI-Short-Video-Generator/blob/main/ai-short-video-generator/public/screenshots/create-new-page.png)
 
+### Upgrade Page
+
+![Upgrade Page](https://github.com/Ubaidshaikh27/AI-Short-Video-Generator/blob/main/ai-short-video-generator/public/screenshots/upgrade-page.png)
+
+### Account Page
+
+![Account Page](https://github.com/Ubaidshaikh27/AI-Short-Video-Generator/blob/main/ai-short-video-generator/public/screenshots/accounts-page.png).
 
 ---
 
@@ -82,3 +85,4 @@ This is a full-stack AI-powered short video generation platform built with:
 ```bash
 git clone https://github.com/your-username/ai-video-generator.git
 cd ai-video-generator
+```
