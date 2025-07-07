@@ -17,7 +17,7 @@ function Header() {
       <div className=" flex gap-3 items-center">
         <div className="flex gap-1 items-center">
           <h2>{userDetail?.credits}</h2>
-          <Image src={"/star.png"} width={20} height={20} />
+          <Image src={"/star.png"} alt="credits" width={20} height={20} />
         </div>
         <Button>Dashboard</Button>
         <UserButton />

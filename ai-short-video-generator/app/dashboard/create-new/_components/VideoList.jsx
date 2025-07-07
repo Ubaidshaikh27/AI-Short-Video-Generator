@@ -18,9 +18,14 @@ function VideoList({ videoList }) {
         <div
           key={index}
           className="cursor-pointer hover:scale-105 transition-all"
+          // onClick={() => {
+          //   setOpenPlayDialog(Date.now());
+          //   setVideoId(video?.id);
+          // }}
+
           onClick={() => {
-            setOpenPlayDialog(Date.now());
             setVideoId(video?.id);
+            setOpenPlayDialog(true);
           }}
         >
           <Thumbnail
@@ -40,7 +45,17 @@ function VideoList({ videoList }) {
           />
         </div>
       ))}
-      <PlayerDialog playVideo={openPlayDialog} videoId={videoId} />
+      {/* <PlayerDialog playVideo={openPlayDialog} videoId={videoId} /> */}
+      {openPlayDialog && videoId && (
+        <PlayerDialog
+          playVideo={true}
+          videoId={videoId}
+          onClose={() => {
+            setOpenPlayDialog(false);
+            setVideoId(null);
+          }}
+        />
+      )}
     </div>
   );
 }
